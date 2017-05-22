@@ -4,6 +4,8 @@
 #include <map>
 #include<algorithm>
 #include<iterator>
+#include "Heap.cpp"
+#include "Neighbor.cpp"
 
 using namespace std;
 const int INFINITY = 1000000;
