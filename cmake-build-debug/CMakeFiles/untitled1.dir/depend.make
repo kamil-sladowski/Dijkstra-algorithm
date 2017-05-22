@@ -3,5 +3,9 @@
 
 CMakeFiles/untitled1.dir/main.cpp.o: ../AdjacencyGraph.cpp
 CMakeFiles/untitled1.dir/main.cpp.o: ../AdjacencyGraph.h
+CMakeFiles/untitled1.dir/main.cpp.o: ../Heap.cpp
+CMakeFiles/untitled1.dir/main.cpp.o: ../Heap.h
+CMakeFiles/untitled1.dir/main.cpp.o: ../Neighbor.cpp
+CMakeFiles/untitled1.dir/main.cpp.o: ../Neighbor.h
 CMakeFiles/untitled1.dir/main.cpp.o: ../main.cpp
 

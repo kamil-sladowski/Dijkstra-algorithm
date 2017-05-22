@@ -36,6 +36,26 @@ vector
 map
 -
 
+/home/Kamil/algorytmy2/untitled1/Heap.cpp
+Heap.h
+/home/Kamil/algorytmy2/untitled1/Heap.h
+iterator
+-
+algorithm
+-
+cstdarg
+-
+
+/home/Kamil/algorytmy2/untitled1/Heap.h
+vector
+-
+
+/home/Kamil/algorytmy2/untitled1/Neighbor.cpp
+Neighbor.h
+/home/Kamil/algorytmy2/untitled1/Neighbor.h
+
+/home/Kamil/algorytmy2/untitled1/Neighbor.h
+
 /home/Kamil/algorytmy2/untitled1/main.cpp
 iostream
 -
@@ -49,4 +69,8 @@ algorithm
 -
 iterator
 -
+Heap.cpp
+/home/Kamil/algorytmy2/untitled1/Heap.cpp
+Neighbor.cpp
+/home/Kamil/algorytmy2/untitled1/Neighbor.cpp
 

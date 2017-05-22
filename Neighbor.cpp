@@ -9,6 +9,10 @@
         id = i;
         dist = d;
     }
+    Neighbor::Neighbor(pair<int, int> p){
+        id = p.first;
+        dist = p.second;
+    }
 
     bool Neighbor::operator <(Neighbor &other) const{
         return dist < other.dist;

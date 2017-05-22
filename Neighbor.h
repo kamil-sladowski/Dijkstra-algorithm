@@ -12,7 +12,7 @@ public:
     int dist = -1;
 
     Neighbor(int i, int d);
-
+    Neighbor(pair<int, int> p);
     bool operator <(Neighbor &other) const;
     bool operator >(Neighbor &other) const;
 

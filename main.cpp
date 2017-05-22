@@ -11,14 +11,9 @@ using namespace std;
 const int INFINITY = 1000000;
 int N;
 
-pair<int, int> getShortestWay(map<int, int> &neighbours_id_dist){
-    auto greatherThan = [](pair<int, int> i, pair<int, int> j){return i.first > j.first;};
-
-    make_heap(neighbours_id_dist.begin(),neighbours_id_dist.end(), greatherThan); //greater<int>
-    sort_heap(neighbours_id_dist.begin(), neighbours_id_dist.end(), greatherThan);
-    auto a = make_pair(0, neighbours_id_dist[0]);
-    pop_heap(neighbours_id_dist.begin(),neighbours_id_dist.end()); neighbours_id_dist.erase(a.first);
-    return a;
+Neighbor getShortestWay(Heap<Neighbor> &heap){
+    Neighbor n = heap.remove();
+    return n;
 }
 
 
@@ -40,14 +35,17 @@ int main() {
     visitedNodes[0] = true;
     distance[0] = 0;
 
-    map<int, int> neighbours_id_dist; //ID, dist
+    Heap<Neighbor> neighbours_id_dist;
     map<int, vector<int>> adjacencyList;
 
-    neighbours_id_dist = adjacency.getNeighbours(currPos);
+    auto temp = adjacency.getNeighbours(currPos);
+
+    for(auto ptr = temp.begin(); ptr!=temp.end(); ptr++)
+        neighbours_id_dist.push(Neighbor(ptr->first, ptr->second));
 
     do{
-        pair<int, int> b = getShortestWay( neighbours_id_dist);
-        currPos = b.second;
+        Neighbor b = getShortestWay( neighbours_id_dist);
+        currPos = b.id;
         visitedNodes[currPos] = true;
 
 
@@ -55,15 +53,16 @@ int main() {
         map<int, int>::const_iterator ptr = neighbours.begin();
         vector<int> nnn;
         for(; ptr!=neighbours.end(); ptr++)
-            nnn.push_back(ptr->second);
+            nnn.push_back(ptr->first);
         adjacencyList.insert(make_pair(currPos, nnn));
+
         for(auto i : neighbours){
-            if (!visitedNodes[i.second])
-                if (distance[i.second] > distance[currPos] + i.first) {
-                    distance[i.second] = distance[currPos] + i.first;
-                    previousVisited[i.second] = currPos;
+            if (!visitedNodes[i.first])
+                if (distance[i.first] > distance[currPos] + i.second) {
+                    distance[i.first] = distance[currPos] + i.second;
+                    previousVisited[i.first] = currPos;
                 }
-            neighbours_id_dist.insert(i.first, i.second);
+            neighbours_id_dist.push(Neighbor(i.first, i.second));
         }
 
     }while(find(visitedNodes.begin(), visitedNodes.end(), false) != visitedNodes.end());//(!visitedNodes.empty()); //!neighbours_id_dist.empty()
