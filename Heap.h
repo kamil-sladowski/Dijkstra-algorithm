@@ -23,6 +23,7 @@ public:
     int getParent(int k);
     int getLeftChild(int k);
     int getRightChild(int k);
+    bool empty();
 
     void show();
 };

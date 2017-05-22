@@ -1,9 +1,5 @@
 #include <iostream>
 #include "AdjacencyGraph.cpp"
-#include <queue>
-#include <map>
-#include<algorithm>
-#include<iterator>
 #include "Heap.cpp"
 #include "Neighbor.cpp"
 
@@ -16,11 +12,23 @@ Neighbor getShortestWay(Heap<Neighbor> &heap){
     return n;
 }
 
+void printPath(int node, int *previousVisited){
+
+    cout << static_cast<char>('A' +node);
+    do{
+            cout << " ->"<<static_cast<char>('A' +previousVisited[node]);
+            node = previousVisited[node];
+    }while(node);
+
+    cout << endl;
+}
+
 
 int main() {
+    int destination;
    cin >>::N;
+    cin >> destination;
     AdjacencyGraph adjacency;
-
     vector<bool> visitedNodes(N, false);
     int *distance = new int[N];
     int *previousVisited = new int[N];
@@ -34,20 +42,27 @@ int main() {
 
     visitedNodes[0] = true;
     distance[0] = 0;
-
     Heap<Neighbor> neighbours_id_dist;
     map<int, vector<int>> adjacencyList;
 
     auto temp = adjacency.getNeighbours(currPos);
 
-    for(auto ptr = temp.begin(); ptr!=temp.end(); ptr++)
-        neighbours_id_dist.push(Neighbor(ptr->first, ptr->second));
+    for(auto ptr = temp.begin(); ptr!=temp.end(); ptr++) {
+        if(!visitedNodes[ptr->first])
+            neighbours_id_dist.push(Neighbor(ptr->first, ptr->second));
+    }
 
+
+    int i =0;
     do{
-        Neighbor b = getShortestWay( neighbours_id_dist);
-        currPos = b.id;
+        Neighbor b(0,0);
+        if(i !=0) {
+            b = getShortestWay(neighbours_id_dist);
+            currPos = b.id;
+        } else {
+            i++; // wykonywane tylko raz
+        }
         visitedNodes[currPos] = true;
-
 
         map<int, int> neighbours = adjacency.getNeighbours(currPos);
         map<int, int>::const_iterator ptr = neighbours.begin();
@@ -61,11 +76,21 @@ int main() {
                 if (distance[i.first] > distance[currPos] + i.second) {
                     distance[i.first] = distance[currPos] + i.second;
                     previousVisited[i.first] = currPos;
+                    neighbours_id_dist.push(Neighbor(i.first, i.second));
                 }
-            neighbours_id_dist.push(Neighbor(i.first, i.second));
         }
 
-    }while(find(visitedNodes.begin(), visitedNodes.end(), false) != visitedNodes.end());//(!visitedNodes.empty()); //!neighbours_id_dist.empty()
+    }while(!neighbours_id_dist.empty());
+
+    for(int i =0; i< N; i++)
+        cout << distance[i]<< "  ";
+    cout << endl;
+    for(int i =0; i< N; i++)
+        cout << static_cast<char>('A' +previousVisited[i])<< "  ";
+    cout << endl;
+
+    if(distance[destination] != INFINITY)
+        printPath(destination, previousVisited);
 
     for(auto x : adjacencyList){
         cout <<static_cast<char>('A' + x.first)<<" ->  ";

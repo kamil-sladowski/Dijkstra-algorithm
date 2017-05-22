@@ -108,3 +108,12 @@ void Heap<T>::swap(int parentId, int childId){
     std::swap(elements[parentId], elements[childId]);
 }
 
+template <typename T>
+bool Heap<T>::empty(){
+    if(n == 0) {
+//        std::cout << empty<<std::endl;
+        return true;
+    }
+    return false;
+}
+
