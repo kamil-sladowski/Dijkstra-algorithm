@@ -1,3 +1,6 @@
+# Prerequisites
+*.d
+
 # Compiled Object files
 *.slo
 *.lo
@@ -5,6 +8,7 @@
 *.obj
 *.idea
 *cmake-build-debug
+
 
 # Precompiled Headers
 *.gch
